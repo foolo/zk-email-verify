@@ -17,7 +17,7 @@ import {
   generateProof,
   verifyProof,
 } from "@zk-email/helpers/src/zkp";
-import { packedNBytesToString } from "@zk-email/helpers/src/binaryFormat";
+import { bigintToHexString } from "@zk-email/helpers/src/binaryFormat";
 import { LabeledTextArea } from "../components/LabeledTextArea";
 import DragAndDropTextBox from "../components/DragAndDropTextBox";
 import { SingleLineInput } from "../components/SingleLineInput";
@@ -135,6 +135,10 @@ export const MainPage: React.FC<{}> = (props) => {
       proof.pi_c.slice(0, 2),
     ].flat();
   };
+
+  const printablePublicSignals = (ps: string[]) => {
+    return ps.map((s: string) => bigintToHexString(BigInt(s))).join('');
+  }
 
   const { config } = usePrepareContractWrite({
     address: import.meta.env.VITE_CONTRACT_ADDRESS,
@@ -384,11 +388,7 @@ export const MainPage: React.FC<{}> = (props) => {
 
               // alert("Done generating proof");
               setProof(JSON.stringify(proof));
-              let kek = publicSignals.map((x: string) => BigInt(x));
-              let soln = packedNBytesToString(kek.slice(0, 12));
-              let soln2 = packedNBytesToString(kek.slice(12, 147));
-              let soln3 = packedNBytesToString(kek.slice(147, 150));
-              // setPublicSignals(`From: ${soln}\nTo: ${soln2}\nUsername: ${soln3}`);
+              let joinedPrintableString = publicSignals.map((s: string) => bigintToHexString(BigInt(s))).join('');
               setPublicSignals(JSON.stringify(publicSignals));
 
               if (!circuitInputs) {
@@ -442,7 +442,7 @@ export const MainPage: React.FC<{}> = (props) => {
           />
           <LabeledTextArea
             label="..."
-            value={publicSignals}
+            value={publicSignals + "\n" + printablePublicSignals(JSON.parse(publicSignals))}
             secret
             onChange={(e) => {
               setPublicSignals(e.currentTarget.value);

@@ -179,14 +179,25 @@ export function assert(cond: boolean, errorMessage: string) {
   }
 }
 
-export function packedNBytesToString(packedBytes: bigint[], n: number = 7): string {
-  let chars: number[] = [];
-  for (let i = 0; i < packedBytes.length; i++) {
-    for (var k = 0n; k < n; k++) {
-      chars.push(Number((packedBytes[i] >> (k * 8n)) % 256n));
+function Uint8ArrayToPrintableString(arr: Uint8Array): string {
+  return Array.from(arr).map((u) => {
+    if (u < 32 || u > 126) {
+      return `[\\0x${u.toString(16).padStart(2, "0")}]`;
     }
+    if (u == 92) {
+      return "\\\\";
+    }
+    return String.fromCharCode(u);
+  }).join('');
+}
+
+export function bigintToHexString(b: bigint): string {
+  let chars: number[] = [];
+  while (b > 0n) {
+    chars.push(Number(b % 256n));
+    b = b >> 8n;
   }
-  return bytesToString(Uint8Array.from(chars));
+  return Uint8ArrayToPrintableString(Uint8Array.from(chars));
 }
 
 export function packBytesIntoNBytes(messagePaddedRaw: Uint8Array | string, n = 7): Array<bigint> {
