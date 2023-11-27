@@ -3045,7 +3045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openzeppelin/contracts@npm:^4.9.3":
+"@openzeppelin/contracts@npm:4.9.3, @openzeppelin/contracts@npm:^4.9.3":
   version: 4.9.3
   resolution: "@openzeppelin/contracts@npm:4.9.3"
   checksum: 4932063e733b35fa7669b9fe2053f69b062366c5c208b0c6cfa1ac451712100c78acff98120c3a4b88d94154c802be05d160d71f37e7d74cadbe150964458838
@@ -4809,7 +4809,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zk-email/twitter-verifier-contracts@workspace:packages/twitter-verifier-contracts"
   dependencies:
-    "@openzeppelin/contracts": ^4.9.3
+    "@openzeppelin/contracts": 4.9.3
     "@openzeppelin/contracts-upgradeable": ^4.9.3
     "@zk-email/contracts": "workspace:^"
     ds-test: "https://github.com/dapphub/ds-test"
@@ -14340,6 +14340,7 @@ __metadata:
     "@babel/preset-env": ^7.22.2
     "@babel/preset-react": ^7.22.0
     "@babel/preset-typescript": ^7.21.5
+    "@openzeppelin/contracts": 4.9.3
     "@types/libmime": ^5.0.3
     babel-jest: ^29.5.0
     babel-preset-jest: ^29.5.0
