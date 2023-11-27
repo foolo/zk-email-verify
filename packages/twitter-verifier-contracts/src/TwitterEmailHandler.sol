@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -113,9 +114,9 @@ contract VerifiedTwitterEmail is ERC721Enumerable {
 
     function _beforeTokenTransfer(
         address from,
-        address to,
-        uint256 tokenId
-    ) internal {
+        address /*to*/,
+        uint256 /*tokenId*/
+    ) internal pure {
         require(
             from == address(0),
             "Cannot transfer - VerifiedEmail is soulbound"
